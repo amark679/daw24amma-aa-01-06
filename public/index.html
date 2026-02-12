@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testuen Itzultzallea</title>
+    
+    <link rel="stylesheet" href="./assets/css/style.css">
+    
+    <link rel="shortcut icon" type="image/x-icon" href="./assets/img/icon-translate.jpg">
+    
+    <script src="./assets/js/main.js" defer></script>
+</head>
+
+<body>
+    <header class="translator__header"> <img class="header__icon" src="./assets/img/icon-translate.jpg">
+        <h1 class="header__title">Testuen itzultzailea</h1>
+    </header>
+    <section class="translator__section">
+        <div class="user__input-group"> 
+                 <input type="text" id="userText" name="testua" class="user__text" placeholder="Zer itzuli nahi duzu gaur?">
+            <div class="user__inputs"> 
+                <select class="user__select" name="hizkuntza" id="targetLang">
+                    <option value="">Aukeratu hizkuntza</option>
+                    <option value="Euskera">Euskera</option>
+                    <option value="Castellano">Castellano</option>
+                    <option value="Ingles">Ingles</option>
+                </select>
+                <button class="user__button" id="translateButton">Itzuli</button>
+            </div>
+        </div>
+        <div class="bot_message" id="botText">
+        </div>
+    </section>
+</body>
+
+</html>
