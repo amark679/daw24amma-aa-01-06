@@ -1,121 +1,15 @@
-/* --- RESET BÁSICO Y FUENTES --- */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f7fa; /* Fondo gris muy suave para la página */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    padding-top: 50px;
-}
-
-/* --- HEADER (Logo y Título) --- */
-.translator__header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    gap: 15px; /* Espacio entre logo y texto */
-}
-
-.header__icon {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-}
-
-.header__title {
-    color: #007bff; /* El azul brillante de la imagen */
-    font-size: 1.8rem;
-    font-weight: 700;
-}
-
-/* --- CONTENEDOR PRINCIPAL (La tarjeta blanca) --- */
-.translator__section {
-    background-color: #fff;
-    width: 90%;
-    max-width: 600px; /* Ancho máximo similar a la imagen */
-    padding: 20px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Sombra suave */
-}
-
-/* --- GRUPO DE INPUTS SUPERIOR --- */
-.user__input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-/* Input de texto "Zer nahi duzu itzuli?" */
-.user__text {
-    width: 100%;
-    padding: 12px 15px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
-    color: #555;
-}
-
-.user__text:focus {
-    border-color: #007bff;
-}
-
-/* --- FILA DE BOTONES (Select + Botón Itzuli) --- */
-.user__inputs {
-    display: flex;
-    gap: 10px; /* Espacio entre el select y el botón */
-}
-
-/* Select desplegable */
-.user__select {
-    flex: 1; /* Ocupa todo el espacio disponible menos el del botón */
-    padding: 10px 15px;
-    background-color: #e9ecef; /* Gris claro de fondo */
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 1rem;
-    color: #333;
-    cursor: pointer;
-    outline: none;
-}
-
-/* Botón azul "Itzuli" */
-.user__button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    min-width: 100px; /* Ancho mínimo para que se vea bien */
-}
-
-.user__button:hover {
-    background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
-}
-
-/* --- CAJA DE RESULTADO (Abajo) --- */
-.bot_message {
-    width: 100%;
-    min-height: 250px; /* Altura fija para que parezca la caja grande vacía */
-    background-color: #fcfcfc; /* Un blanco casi imperceptiblemente gris */
-    border: 1px solid #f0f0f0; /* Borde muy sutil */
-    border-radius: 4px;
-    padding: 15px;
-    font-size: 1.1rem;
-    color: #333;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); /* Pequeña sombra interna */
-}
+body { font-family: sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .main-container { width: 100%; max-width: 500px; background: #fff; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); overflow: hidden; display: flex; flex-direction: column; height: 85vh; }
+        .header { background: #fff; padding: 15px; text-align: center; border-bottom: 1px solid #eee; display: flex; justify-content: center; gap: 10px; color: #007bff; font-size: 20px; font-weight: bold; }
+        #txat-edukia { flex: 1; background-color: #37474F; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+        .mezua { display: flex; width: 100%; }
+        .burbuila { max-width: 75%; padding: 10px 15px; border-radius: 15px; font-size: 15px; word-wrap: break-word; }
+        .bota { justify-content: flex-start; }
+        .bota .burbuila { background: #f1f1f1; color: #333; border-top-left-radius: 2px; }
+        .erabiltzailea { justify-content: flex-end; }
+        .erabiltzailea .burbuila { background: #007bff; color: white; border-top-right-radius: 2px; }
+        .input-area { background: #fff; padding: 15px; border-top: 1px solid #ddd; display: flex; gap: 10px; }
+        input[type="text"] { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 25px; outline: none; background: #f9f9f9; }
+        button.bidali-btn { background: #007bff; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; }
+        .footer-tools { text-align: center; background: #fff; padding-bottom: 8px; }
+        .garbitu-btn { background: none; border: none; color: #888; cursor: pointer; text-decoration: underline; font-size: 11px; }

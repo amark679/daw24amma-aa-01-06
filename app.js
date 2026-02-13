@@ -11,55 +11,47 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Frontend-eko fitxategiak zerbitzatzeko middlewarea definitu
-app.use("/", express.static("public"));
+app.use(express.static("public"));
 
-// Backend-ean jasotako JSON string-ak JavaScript-eko objetuetan
-// bihurtzeko middlewarea definitu
+// JSON eta URL-encoded datuak prozesatzeko middlewareak
 app.use(express.json());
-
-// Backend-ean jasotako datuak formulario batetik heltzen
-// direnean (x-www-form-encoded) JavaScript-eko objetuetan
-// bihurtzeko middlewarea definitu
 app.use(express.urlencoded({ extended: true }));
 
-// OpenAI bezeroaren instantzia bat sortu eta API key-a pasatu
+// OpenAI bezeroaren instantzia bat sortu
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
-// POST eskaera bat jasotzen denean, OpenAI API-a deitu eta
-// erantzuna bidali
-app.post("/api/translate", async (req, res) => {
-    // Eskaeraren gorputzean jasotako datuak hartu
-    const { text, targetLang } = req.body;
-    // OpenAI API-a deitu eta itzulitako testua lortu
-    const promptSystem1 = "Itzultzaile profesionala zara.";
-    const promptSystem2 = `Jasotako testua ${targetLang} hizkuntzara itzuli.`;
-    const promptSystem3 = "Erabiltzaileak bialdutako testuaren itzulpen zuzena itzuli behar duzu." + "Beste erantzun mota guztiak debekatuta daude.";
-    const promptUser = `Itzuli testua: ${targetLang} hizkuntzara hurrengo testua: ${text}`;
-    // OpenAI-ko modelora eskaera egin (await-ak async-a behar du callback-eko funtzioan)
+// Txatbotaren endpoint-a sortu (POST eskaera)
+app.post("/api/chat", async (req, res) => {
+    // Frontend-etik datorren erabiltzailearen mezua hartu
+    const { mezua } = req.body;
+
+    // Txatbotaren nortasuna edo portaera definitu
+    const promptSystem = "Laguntzaile birtual euskaldun eta atsegina zara. Erabiltzaileei modu argi eta lagungarrian erantzuten diezu.";
 
     try {
         const completion = await openai.chat.completions.create({
-            model: "gpt-4o-mini",
+            model: "gpt-4o-mini", // Modeloa
             messages: [
-                { role: "system", content: promptSystem1 },
-                { role: "system", content: promptSystem2 },
-                { role: "system", content: promptSystem3 },
-                { role: "user", content: promptUser },
+                { role: "system", content: promptSystem },
+                { role: "user", content: mezua }
             ],
             max_tokens: 500,
-            response_format: {
-                type: "text",
-            },
         });
-        const translatedText = completion.choices[0].message.content;
-        return res.status(200).json({ translatedText });
+
+        // OpenAI-ren erantzuna atera
+        const erantzuna = completion.choices[0].message.content;
+        
+        // Erantzuna frontend-era bidali JSON formatuan
+        return res.status(200).json({ erantzuna });
+
     } catch (error) {
-        console.log(error);
-        return res.status(500).json({ error: "Errorea itzulpenan." });
+        console.error("Errorea OpenAI-rekin:", error);
+        return res.status(500).json({ error: "Errorea txatbotarekin komunikatzean." });
     }
 });
+
 app.listen(PORT, () => {
     console.log(`Zerbitzaria martxan http://localhost:${PORT} helbidean`);
 });
