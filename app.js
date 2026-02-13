@@ -28,7 +28,7 @@ app.post("/api/chat", async (req, res) => {
     const { mezua } = req.body;
 
     // Txatbotaren nortasuna edo portaera definitu
-    const promptSystem = "Laguntzaile birtual euskaldun eta atsegina zara. Erabiltzaileei modu argi eta lagungarrian erantzuten diezu.";
+    const promptSystem = "Laguntzaile adimendua zara";
 
     try {
         const completion = await openai.chat.completions.create({
