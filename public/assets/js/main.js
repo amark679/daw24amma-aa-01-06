@@ -4,6 +4,8 @@ const inputMezua = document.getElementById('mezu-testua');
 const txatEdukia = document.getElementById('txat-edukia');
 const btnGarbitu = document.querySelector('.garbitu-btn');
 
+let mezuHistoriala = [];
+
 // Formularioa bidaltzean exekutatuko den funtzio asinkronoa
 formulario.addEventListener('submit', async (evento) => {
     evento.preventDefault(); // Orria ez kargatzeko
@@ -11,7 +13,8 @@ formulario.addEventListener('submit', async (evento) => {
     const mezua = inputMezua.value.trim();
     if (mezua === '') return;
 
-    // 1. Erabiltzailearen mezua pantailan marraztu
+    // 1. Erabiltzailearen mezua pantailan marraztu eta historiala gorde
+    mezuHistoriala.push({ role: "user", content: mezua });
     marraztuBurbuila(mezua, 'erabiltzailea');
     inputMezua.value = ''; // Input-a garbitu
 
@@ -22,13 +25,14 @@ formulario.addEventListener('submit', async (evento) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ mezua: mezua }) // Mezua JSON formatuan bidali
+            body: JSON.stringify({ historial: mezuHistoriala }) // Mezua JSON formatuan bidali
         });
 
         const datuak = await response.json();
 
         // 3. Dena ondo badoa, bot-aren erantzuna marraztu
         if (response.ok) {
+            mezuHistoriala.push({ role: "assistant", content: datuak.erantzuna });
             marraztuBurbuila(datuak.erantzuna, 'bota');
         } else {
             marraztuBurbuila("Barkatu, errore bat egon da.", 'bota');
@@ -43,6 +47,7 @@ formulario.addEventListener('submit', async (evento) => {
 // Txata garbitzeko botoia
 btnGarbitu.addEventListener('click', () => {
     txatEdukia.innerHTML = '';
+    mezuHistoriala = []; //Memoria ere garbitu
 });
 
 // Burbuilak sortzeko funtzio laguntzailea

@@ -25,18 +25,20 @@ const openai = new OpenAI({
 // Txatbotaren endpoint-a sortu (POST eskaera)
 app.post("/api/chat", async (req, res) => {
     // Frontend-etik datorren erabiltzailearen mezua hartu
-    const { mezua } = req.body;
+    const { historial } = req.body;
 
     // Txatbotaren nortasuna edo portaera definitu
     const promptSystem = "Laguntzaile adimendua zara";
 
+    const mezuGuztiak = [
+        { role: "system", content: promptSystem },
+        ...historial 
+    ];
+
     try {
         const completion = await openai.chat.completions.create({
             model: "gpt-4o-mini", // Modeloa
-            messages: [
-                { role: "system", content: promptSystem },
-                { role: "user", content: mezua }
-            ],
+            messages: mezuGuztiak,
             max_tokens: 500,
         });
 
